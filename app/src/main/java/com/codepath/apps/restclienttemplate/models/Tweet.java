@@ -17,7 +17,7 @@ public class Tweet{
 	public String body; // tweet body maxChar 140
 	public String createdAt; // time created
 	public long uid; // database ID
-	// public User user; // info abt the user
+	public User user; // info about the user
 
 	public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
 		Tweet tweet = new Tweet();
@@ -25,6 +25,8 @@ public class Tweet{
 		tweet.body = jsonObject.getString("text");
 		tweet.uid = jsonObject.getLong("id");
 		tweet.createdAt = jsonObject.getString("created_at");
+		// TODO Ask for clarification on this line
+		tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
 		return tweet;
 	}
 
