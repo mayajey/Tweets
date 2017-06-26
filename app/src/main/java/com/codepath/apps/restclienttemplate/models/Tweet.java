@@ -63,10 +63,10 @@ public class Tweet extends BaseModel {
 	
 	// Record Finders
 	public static Tweet byId(long id) {
-		return new Select().from(Tweet.class).where(SampleModel_Table.id.eq(id)).querySingle();
+		return new Select().from(Tweet.class).where(Tweet_Table.id.eq(id)).querySingle();
 	}
 
 	public static List<Tweet> recentItems() {
-		return new Select().from(Tweet.class).orderBy(SampleModel_Table.id, false).limit(300).queryList();
+		return new Select().from(Tweet.class).orderBy(Tweet_Table.id, false).limit(300).queryList();
 	}
 }

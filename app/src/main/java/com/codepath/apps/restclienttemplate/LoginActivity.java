@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
@@ -25,9 +26,11 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		// probably call timeline
-		// Intent i = new Intent(this, PhotosActivity.class);
-		// startActivity(i);
+		// probably call timeline class?
+		Toast.makeText(this, "Success, logged in!", Toast.LENGTH_LONG).show();
+
+		// Intent intent = new Intent(this, TimelineActivity.class);
+		// startActivity(intent);
 	}
 
 	// OAuth authentication flow failed, handle the error
