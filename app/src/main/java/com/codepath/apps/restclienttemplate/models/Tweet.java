@@ -63,6 +63,22 @@ public class Tweet implements Parcelable {
 		return relativeDate;
 	}
 
+	public String getBody() {
+		return body;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public long getUid() {
+		return uid;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
 	@Override
 	public void writeToParcel(android.os.Parcel dest, int flags) {
 		dest.writeString(body);

@@ -36,6 +36,22 @@ public class User implements Parcelable{
         return user;
     }
 
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public String getScreenName() {
+        return screenName;
+    }
+
     @Override
     public int describeContents() {
         return 0;
