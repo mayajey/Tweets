@@ -41,7 +41,6 @@ public class Tweet implements Parcelable {
 		tweet.uid = jsonObject.getLong("id");
 		String crAt = jsonObject.getString("created_at");
 		tweet.createdAt = getRelativeTimeAgo(crAt);
-		// TODO Ask for clarification on this line
 		tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
 		return tweet;
 	}
