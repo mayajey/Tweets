@@ -1,5 +1,8 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,13 +10,22 @@ import org.json.JSONObject;
  * Created by mayajey on 6/26/17.
  */
 
-public class User {
+public class User implements Parcelable{
 
     // attributes
     public String name;
     public long uid;
     public String screenName;
     public String profileImageUrl;
+
+    public User() {}
+
+    private User(android.os.Parcel in) {
+        name = in.readString();
+        uid = in.readLong();
+        screenName = in.readString();
+        profileImageUrl = in.readString();
+    }
 
     public static User fromJSON(JSONObject jsonObject) throws JSONException {
         User user = new User();
@@ -23,4 +35,34 @@ public class User {
         user.profileImageUrl = jsonObject.getString("profile_image_url");
         return user;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeLong(uid);
+        dest.writeString(screenName);
+        dest.writeString(profileImageUrl);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR
+            = new Parcelable.Creator<User>() {
+
+        // This simply calls our new constructor (typically private) and
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        // We just need to copy this and change the type to match our class.
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

@@ -8,5 +8,6 @@
         android:id="@+id/menuCompose"
         android:icon="@drawable/twittercompose"
         android:title="Compose"
+        android:onClick="onComposeAction"
         app:showAsAction="ifRoom" />
 </menu>
