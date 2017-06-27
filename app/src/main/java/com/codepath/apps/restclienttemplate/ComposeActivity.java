@@ -39,19 +39,16 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     protected void onClickPost() {
-        // network request w/ postTweet() -- how?
-
         TwitterClient twitterClient = new TwitterClient(this);
         twitterClient.sendTweet(etComposeTweet.getText().toString(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("Post SUCCESS", response.toString());
-
                 try {
                     Tweet newTweet = Tweet.fromJSON(response);
                     Intent passBack = new Intent();
                     // Pass data back
-                   passBack.putExtra("tweet", newTweet);
+                    passBack.putExtra("tweet", newTweet);
                     setResult(COMPOSE_REQUEST_CODE, passBack);
                     finish();
                 } catch (JSONException e) {

@@ -32,4 +32,14 @@
         android:text="TextView"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/ivProfileImage" />
+
+    <TextView
+        android:id="@+id/tvCreatedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
