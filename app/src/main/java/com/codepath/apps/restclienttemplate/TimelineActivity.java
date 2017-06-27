@@ -70,8 +70,13 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(tweetAdapter);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         // populate timeline
-        populateTimeline();
+        // populateTimeline();
     }
 
     @Override
@@ -80,8 +85,9 @@ public class TimelineActivity extends AppCompatActivity {
         miActionProgressItem = menu.findItem(R.id.miActionProgress);
         // Extract the action-view from the menu item
         ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
-        showProgressBar();
         // Return to finish
+        // populate timeline
+        populateTimeline();
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -116,7 +122,6 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         // check request code and result code first
         if (resultCode == requestCode) {
             Tweet newTweet = (Tweet) data.getParcelableExtra("tweet");
@@ -127,10 +132,12 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateTimeline() {
+        miActionProgressItem.setVisible(true);
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("TwitterClient SUCCESS", response.toString());
+                miActionProgressItem.setVisible(false);
             }
 
             @Override
@@ -145,6 +152,7 @@ public class TimelineActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                miActionProgressItem.setVisible(false);
             }
 
             @Override
