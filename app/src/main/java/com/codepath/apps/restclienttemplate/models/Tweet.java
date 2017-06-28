@@ -78,6 +78,7 @@ public class Tweet implements Parcelable {
 		return user;
 	}
 
+
 	@Override
 	public void writeToParcel(android.os.Parcel dest, int flags) {
 		dest.writeString(body);

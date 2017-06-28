@@ -24,7 +24,6 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etComposeTweet;
     TextView tvCharCount;
     Button btPost;
-
     private final int COMPOSE_REQUEST_CODE = 10;
 
     @Override

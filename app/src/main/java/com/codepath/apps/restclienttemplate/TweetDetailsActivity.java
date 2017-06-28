@@ -2,15 +2,22 @@ package com.codepath.apps.restclienttemplate;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetDetailsActivity extends AppCompatActivity {
@@ -20,6 +27,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvBody;
     TextView tvCreatedAt;
     ImageView ivProfileImage;
+    Button btnFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvBody = (TextView) findViewById(R.id.tvBody);
         tvCreatedAt = (TextView) findViewById(R.id.tvCreatedAt);
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        btnFavorite = (Button) findViewById(R.id.btnFavorite);
         String imageUrl = user.getProfileImageUrl();
 
         Glide.with(this)
@@ -43,5 +52,33 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvBody.setText(tweet.getBody());
         tvUserName.setText(user.getScreenName());
         tvCreatedAt.setText(tweet.getCreatedAt());
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickFavorite();
+            }
+        });
     }
+
+    protected void onClickFavorite() {
+        TwitterClient twitterClient = new TwitterClient(this);
+        twitterClient.sendFavorite(String.valueOf(tweet.getUid()), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("Favorite SUCCESS", response.toString());
+                try {
+                    Tweet newTweet = Tweet.fromJSON(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Post FAILURE", responseString);
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+
 }

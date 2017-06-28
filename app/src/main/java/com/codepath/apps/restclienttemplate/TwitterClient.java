@@ -60,6 +60,11 @@ public class TwitterClient extends OAuthBaseClient {
 		client.post(apiUrl, params, handler);
 	}
 
+	public void sendFavorite(String uid, AsyncHttpResponseHandler handler) {
+		String apiUrl = REST_URL + "favorites/create.json" + "?id=" + uid;
+		RequestParams params = new RequestParams();
+		client.post(apiUrl, params, handler);
+	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");
