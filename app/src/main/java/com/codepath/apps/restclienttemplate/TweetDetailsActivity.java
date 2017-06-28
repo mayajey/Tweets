@@ -28,6 +28,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvCreatedAt;
     ImageView ivProfileImage;
     Button btnFavorite;
+    Button btnUnfavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvCreatedAt = (TextView) findViewById(R.id.tvCreatedAt);
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
         btnFavorite = (Button) findViewById(R.id.btnFavorite);
+        btnUnfavorite = (Button) findViewById(R.id.btnUnfavorite);
         String imageUrl = user.getProfileImageUrl();
 
         Glide.with(this)
@@ -58,6 +60,13 @@ public class TweetDetailsActivity extends AppCompatActivity {
                 onClickFavorite();
             }
         });
+
+        btnUnfavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickUnfavorite();
+            }
+        });
     }
 
     protected void onClickFavorite() {
@@ -74,7 +83,27 @@ public class TweetDetailsActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Post FAILURE", responseString);
+                Log.d("Favorite FAILURE", responseString);
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+    protected void onClickUnfavorite() {
+        TwitterClient twitterClient = new TwitterClient(this);
+        twitterClient.sendUnfavorite(String.valueOf(tweet.getUid()), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("Unfavorite SUCCESS", response.toString());
+                try {
+                    Tweet newTweet = Tweet.fromJSON(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("Unfavorite FAILURE", responseString);
                 throwable.printStackTrace();
             }
         });

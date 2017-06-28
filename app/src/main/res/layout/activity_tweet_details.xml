@@ -51,4 +51,14 @@
         android:text="Favorite!"
         android:layout_below="@+id/tvBody"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btnUnfavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnFavorite"
+        android:layout_marginStart="33dp"
+        android:layout_toEndOf="@+id/btnFavorite"
+        android:text="UNFAVORITE!" />
+
 </RelativeLayout>
