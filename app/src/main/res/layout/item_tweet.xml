@@ -42,4 +42,14 @@
         android:textAlignment="textEnd"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:id="@+id/tvUnderscoreLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvBody"
+        android:fontFamily="serif"
+        android:text="_______________________________________________________"
+        android:textStyle="bold" />
+
 </RelativeLayout>

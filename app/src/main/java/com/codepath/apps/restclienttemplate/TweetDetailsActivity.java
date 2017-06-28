@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,8 +28,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
     TextView tvBody;
     TextView tvCreatedAt;
     ImageView ivProfileImage;
-    Button btnFavorite;
     Button btnUnfavorite;
+    ImageButton ibFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvBody = (TextView) findViewById(R.id.tvBody);
         tvCreatedAt = (TextView) findViewById(R.id.tvCreatedAt);
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
-        btnFavorite = (Button) findViewById(R.id.btnFavorite);
         btnUnfavorite = (Button) findViewById(R.id.btnUnfavorite);
+        ibFavorite = (ImageButton) findViewById(R.id.ibFavorite);
         String imageUrl = user.getProfileImageUrl();
 
         Glide.with(this)
@@ -54,7 +55,8 @@ public class TweetDetailsActivity extends AppCompatActivity {
         tvBody.setText(tweet.getBody());
         tvUserName.setText(user.getScreenName());
         tvCreatedAt.setText(tweet.getCreatedAt());
-        btnFavorite.setOnClickListener(new View.OnClickListener() {
+
+        ibFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickFavorite();
