@@ -20,6 +20,7 @@
         android:layout_height="115dp"
         android:layout_marginLeft="0dp"
         android:text="TextView"
+        android:autoLink="all"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_editor_absoluteY="42dp"
         android:layout_below="@+id/ivProfileImage"
