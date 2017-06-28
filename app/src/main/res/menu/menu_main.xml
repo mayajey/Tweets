@@ -5,11 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuCompose"
-        android:icon="@drawable/twittercompose"
-        android:title="Compose"
-        android:onClick="onComposeAction"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/twitterImage"
+        android:icon="@drawable/tweetbird"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/fake5"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/fake5"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/fake4"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/fake3"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/fake2"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/miActionProgress"
@@ -18,4 +31,10 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         app:actionLayout="@layout/action_view_progress" />
+    <item
+        android:id="@+id/menuCompose"
+        android:icon="@drawable/composeicon"
+        android:onClick="onComposeAction"
+        android:title="Compose"
+        app:showAsAction="always" />
 </menu>
