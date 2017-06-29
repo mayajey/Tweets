@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c0deed"
+    android:background="#ffffff"
     tools:context="com.codepath.apps.restclienttemplate.TweetDetailsActivity">
 
     <TextView
@@ -50,8 +50,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="UNFAVORITE!"
-        android:layout_below="@+id/tvBody"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/ibFavorite"
+        android:layout_toEndOf="@+id/tvCreatedAt"
+        android:layout_marginStart="18dp" />
 
     <ImageButton
         android:id="@+id/ibFavorite"

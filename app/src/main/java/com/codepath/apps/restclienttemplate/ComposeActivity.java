@@ -16,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -24,7 +25,9 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etComposeTweet;
     TextView tvCharCount;
     Button btPost;
+    String action;
     private final int COMPOSE_REQUEST_CODE = 10;
+    private final int REPLY_REQUEST_CODE = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,32 +60,83 @@ public class ComposeActivity extends AppCompatActivity {
                 onClickPost();
             }
         });
+        action = getIntent().getStringExtra("action");
+        if (action.equals("reply")) {
+            onClickReply();
+        }
     }
 
     protected void onClickPost() {
         TwitterClient twitterClient = new TwitterClient(this);
-        twitterClient.sendTweet(etComposeTweet.getText().toString(), new JsonHttpResponseHandler() {
+        if (action.equals("reply")) {
+            Tweet replyTo = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+            String replyID = String.valueOf(replyTo.getUid());
+            String replyUsername = replyTo.getUser().getScreenName();
+            String fullMessage = "@" + replyUsername + " " + etComposeTweet.getText().toString();
+            twitterClient.sendReply(replyID, fullMessage, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.d("Reply SUCCESS", response.toString());
+                    try {
+                        Tweet newTweet = Tweet.fromJSON(response);
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d("Reply FAILURE", responseString);
+                    throwable.printStackTrace();
+                }
+            });
+        }
+        else {
+            twitterClient.sendTweet(etComposeTweet.getText().toString(), new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.d("Post SUCCESS", response.toString());
+                    try {
+                        Tweet newTweet = Tweet.fromJSON(response);
+                        Intent passBack = new Intent();
+                        // Pass data back
+                        passBack.putExtra("tweet", newTweet);
+                        setResult(COMPOSE_REQUEST_CODE, passBack);
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d("Post FAILURE", responseString);
+                    throwable.printStackTrace();
+                }
+            });
+        }
+    }
+
+    protected void onClickReply() {
+        Tweet replyTo = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
+        String replyID = String.valueOf(replyTo.getUid());
+        String replyUsername = replyTo.getUser().getScreenName();
+        String fullMessage = "@" + replyUsername + " " + etComposeTweet.getText().toString();
+        TwitterClient twitterClient = new TwitterClient(this);
+        twitterClient.sendReply(replyID, fullMessage, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("Post SUCCESS", response.toString());
+                Log.d("Reply SUCCESS", response.toString());
                 try {
                     Tweet newTweet = Tweet.fromJSON(response);
-                    Intent passBack = new Intent();
-                    // Pass data back
-                    passBack.putExtra("tweet", newTweet);
-                    setResult(COMPOSE_REQUEST_CODE, passBack);
-                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Post FAILURE", responseString);
+                Log.d("Reply FAILURE", responseString);
                 throwable.printStackTrace();
             }
         });
-
-
     }
 }

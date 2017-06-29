@@ -111,5 +111,4 @@ public class TweetDetailsActivity extends AppCompatActivity {
         });
     }
 
-
 }

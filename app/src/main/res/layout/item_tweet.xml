@@ -52,4 +52,13 @@
         android:text="_______________________________________________________"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/btnReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvUnderscoreLine"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvCreatedAt"
+        android:text="REPLY" />
+
 </RelativeLayout>
