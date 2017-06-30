@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -42,23 +43,25 @@
         android:textAlignment="textEnd"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:id="@+id/tvUnderscoreLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvBody"
-        android:fontFamily="serif"
-        android:text="_______________________________________________________"
-        android:textStyle="bold" />
-
-    <Button
+    <ImageButton
         android:id="@+id/btnReply"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvBody"
+        android:background="@android:color/white"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/reply" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvUnderscoreLine"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/tvCreatedAt"
-        android:text="REPLY" />
+        android:text="TextView"
+        android:textAllCaps="false"
+        android:textSize="10sp"
+        android:layout_alignBaseline="@+id/tvUserName"
+        android:layout_alignBottom="@+id/tvUserName"
+        android:layout_toEndOf="@+id/tvUserName" />
 
 </RelativeLayout>

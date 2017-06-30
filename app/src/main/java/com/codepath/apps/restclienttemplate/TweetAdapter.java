@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +58,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvUserName.setText(current.user.name);
         holder.tvBody.setText(current.body);
         holder.tvCreatedAt.setText(current.createdAt);
+        String screenName = "  (@" + current.getUser().getScreenName() + ")";
+        holder.tvScreenName.setText(screenName);
 
         // load profile image URL with Glide
         Glide.with(context)
@@ -88,8 +90,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public ImageView ivProfileImage;
         public TextView tvUserName;
         public TextView tvBody;
+        public TextView tvScreenName;
         public TextView tvCreatedAt;
-        public Button btnReply;
+        public ImageButton btnReply;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -98,7 +101,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
-            btnReply = (Button) itemView.findViewById(R.id.btnReply);
+            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
+            btnReply = (ImageButton) itemView.findViewById(R.id.btnReply);
             btnReply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -135,7 +139,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 // use parceler to wrap tweet
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
                 intent.putExtra("action", "reply");
-                // show the activity
+                // show the activity -- different from an adapter
                 ((AppCompatActivity) context).startActivityForResult(intent, 10);
             }
         }
