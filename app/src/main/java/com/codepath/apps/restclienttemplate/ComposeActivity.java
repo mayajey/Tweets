@@ -61,9 +61,6 @@ public class ComposeActivity extends AppCompatActivity {
             }
         });
         action = getIntent().getStringExtra("action");
-        if (action.equals("reply")) {
-            onClickReply();
-        }
     }
 
     protected void onClickPost() {
@@ -79,6 +76,10 @@ public class ComposeActivity extends AppCompatActivity {
                     Log.d("Reply SUCCESS", response.toString());
                     try {
                         Tweet newTweet = Tweet.fromJSON(response);
+                        Intent passBack = new Intent();
+                        // Pass data back
+                        passBack.putExtra("tweet", newTweet);
+                        setResult(COMPOSE_REQUEST_CODE, passBack);
                         finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -114,29 +115,5 @@ public class ComposeActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    protected void onClickReply() {
-        Tweet replyTo = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra(Tweet.class.getSimpleName()));
-        String replyID = String.valueOf(replyTo.getUid());
-        String replyUsername = replyTo.getUser().getScreenName();
-        String fullMessage = "@" + replyUsername + " " + etComposeTweet.getText().toString();
-        TwitterClient twitterClient = new TwitterClient(this);
-        twitterClient.sendReply(replyID, fullMessage, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("Reply SUCCESS", response.toString());
-                try {
-                    Tweet newTweet = Tweet.fromJSON(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("Reply FAILURE", responseString);
-                throwable.printStackTrace();
-            }
-        });
     }
 }
