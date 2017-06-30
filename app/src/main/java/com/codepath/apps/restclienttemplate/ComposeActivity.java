@@ -7,8 +7,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -24,7 +24,7 @@ public class ComposeActivity extends AppCompatActivity {
 
     EditText etComposeTweet;
     TextView tvCharCount;
-    Button btPost;
+    ImageButton btPost;
     String action;
     private final int COMPOSE_REQUEST_CODE = 10;
 
@@ -32,7 +32,7 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
-        btPost = (Button) findViewById(R.id.btPost);
+        btPost = (ImageButton) findViewById(R.id.btPost);
         tvCharCount = (TextView) findViewById(R.id.tvCharCount);
         etComposeTweet = (EditText) findViewById(R.id.etComposeTweet);
         etComposeTweet.addTextChangedListener(new TextWatcher() {
@@ -43,9 +43,11 @@ public class ComposeActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String base = " chars left";
                 int len = etComposeTweet.getText().length();
                 int countLeft = 140 - len;
-                tvCharCount.setText(String.valueOf(countLeft));
+                String finalText = String.valueOf(countLeft) + base;
+                tvCharCount.setText(finalText);
             }
 
             @Override
