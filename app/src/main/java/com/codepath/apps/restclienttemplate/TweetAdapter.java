@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,7 +136,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
                 intent.putExtra("action", "reply");
                 // show the activity
-                context.startActivity(intent);
+                ((AppCompatActivity) context).startActivityForResult(intent, 10);
             }
         }
     }

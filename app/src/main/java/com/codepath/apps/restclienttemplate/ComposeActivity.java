@@ -27,7 +27,6 @@ public class ComposeActivity extends AppCompatActivity {
     Button btPost;
     String action;
     private final int COMPOSE_REQUEST_CODE = 10;
-    private final int REPLY_REQUEST_CODE = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

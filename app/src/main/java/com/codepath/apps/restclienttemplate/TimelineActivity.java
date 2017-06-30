@@ -32,8 +32,7 @@ public class TimelineActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
     MenuItem miActionProgressItem;
     private final int COMPOSE_REQUEST_CODE = 10;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
