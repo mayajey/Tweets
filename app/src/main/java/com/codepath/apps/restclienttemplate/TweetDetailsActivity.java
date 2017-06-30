@@ -47,7 +47,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .load(imageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(this, 15, 0))
+                .bitmapTransform(new RoundedCornersTransformation(this, 25, 0))
                 //.placeholder(placeholderId)
                 //.error(placeholderId)
                 .into(ivProfileImage);
@@ -72,11 +72,13 @@ public class TweetDetailsActivity extends AppCompatActivity {
     }
 
     protected void onClickFavorite() {
+        ibFavorite.setImageResource(R.drawable.actualfav);
         TwitterClient twitterClient = new TwitterClient(this);
         twitterClient.sendFavorite(String.valueOf(tweet.getUid()), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("Favorite SUCCESS", response.toString());
+
                 try {
                     Tweet newTweet = Tweet.fromJSON(response);
                 } catch (JSONException e) {
@@ -92,6 +94,7 @@ public class TweetDetailsActivity extends AppCompatActivity {
     }
 
     protected void onClickUnfavorite() {
+        ibFavorite.setImageResource(R.drawable.favorite);
         TwitterClient twitterClient = new TwitterClient(this);
         twitterClient.sendUnfavorite(String.valueOf(tweet.getUid()), new JsonHttpResponseHandler() {
             @Override
