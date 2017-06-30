@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
@@ -93,6 +98,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvScreenName;
         public TextView tvCreatedAt;
         public ImageButton btnReply;
+        public ImageButton btnRetweet;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -103,13 +109,21 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
             tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
             btnReply = (ImageButton) itemView.findViewById(R.id.btnReply);
+            btnRetweet = (ImageButton) itemView.findViewById(R.id.btnRetweet);
+            itemView.setOnClickListener(this);
             btnReply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onClickBtnReply();
                 }
             });
-            itemView.setOnClickListener(this);
+            btnRetweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickBtnRetweet();
+                }
+            });
+
         }
 
         @Override
@@ -141,6 +155,35 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 intent.putExtra("action", "reply");
                 // show the activity -- different from an adapter
                 ((AppCompatActivity) context).startActivityForResult(intent, 10);
+            }
+        }
+
+        public void onClickBtnRetweet() {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                // Get the tweet at that position
+                Tweet retweet = mTweets.get(position);
+                String rtID = String.valueOf(retweet.getUid());
+                // Communicate btwn activities -- adapter & showing details
+                TwitterClient client = new TwitterClient(context);
+                client.sendRetweet(rtID, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.d("retweet SUCCESS", response.toString());
+                        try {
+                            Tweet newTweet = Tweet.fromJSON(response);
+                            mTweets.add(newTweet);
+                            notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.d("retweet FAILURE", responseString);
+                        throwable.printStackTrace();
+                    }
+                });
             }
         }
     }

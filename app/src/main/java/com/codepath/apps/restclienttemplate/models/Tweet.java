@@ -31,7 +31,6 @@ public class Tweet implements Parcelable {
 	public String createdAt; // time created
 	public long uid; // database ID
 	public User user; // info about the user
-
 	public Tweet() {}
 
 	public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -77,8 +76,6 @@ public class Tweet implements Parcelable {
 	public User getUser() {
 		return user;
 	}
-
-
 
 	@Override
 	public void writeToParcel(android.os.Parcel dest, int flags) {
