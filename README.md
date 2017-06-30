@@ -52,7 +52,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![Walkthrough](Walkthrough.gif)
+![Walkthrough](walkthrough.gif)
 
 GIF created with Vysor & RecordIt.
 
