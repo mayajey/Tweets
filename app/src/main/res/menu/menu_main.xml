@@ -12,7 +12,7 @@
         android:id="@+id/fake5"
         app:showAsAction="always" />
     <item
-        android:id="@+id/fake5"
+        android:id="@+id/fake1.5"
         app:showAsAction="always" />
     <item
         android:id="@+id/fake4"
@@ -24,13 +24,6 @@
         android:id="@+id/fake2"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/miActionProgress"
-        android:title="Loading..."
-        android:visible="false"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        app:actionLayout="@layout/action_view_progress" />
     <item
         android:id="@+id/menuCompose"
         android:icon="@drawable/composeicon"
