@@ -33,6 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
         // configure tab layout to use pager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+        homeTimelineFragment = (HomeTimelineFragment) ((TweetsPagerAdapter) vpPager.getAdapter()).getItem(0);
     }
 
     @Override
@@ -54,6 +55,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void onProfileView(MenuItem item) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+
     }
 
     @Override

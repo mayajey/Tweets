@@ -33,8 +33,18 @@ public class TweetsListFragment extends Fragment {
 
     public TweetsListFragment() { }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // instantiate array list of tweets
+        tweets = new ArrayList<>();
+
+        // construct adaptor from list of tweets
+        tweetAdapter = new TweetAdapter(tweets);
+    }
+
     // inflation happens in onCreateView
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inflate layout
@@ -60,11 +70,6 @@ public class TweetsListFragment extends Fragment {
 //                android.R.color.holo_orange_light,
 //                android.R.color.holo_red_light);
 
-        // instantiate array list of tweets
-        tweets = new ArrayList<>();
-
-        // construct adaptor from list of tweets
-        tweetAdapter = new TweetAdapter(tweets);
 
         // setup RV -- layout manager & setup w adapter
         rvTweets.setLayoutManager(new LinearLayoutManager(getContext()));
