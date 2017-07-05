@@ -10,13 +10,16 @@ import org.json.JSONObject;
  * Created by mayajey on 6/26/17.
  */
 
-public class User implements Parcelable{
+public class User implements Parcelable {
 
     // attributes
     public String name;
     public long uid;
     public String screenName;
     public String profileImageUrl;
+    public String tagLine;
+    public int followersCount;
+    public int followingCount;
 
     public User() {}
 
@@ -33,6 +36,9 @@ public class User implements Parcelable{
         user.uid = jsonObject.getLong("id");
         user.screenName = jsonObject.getString("screen_name");
         user.profileImageUrl = jsonObject.getString("profile_image_url");
+        user.tagLine = jsonObject.getString("description");
+        user.followersCount = jsonObject.getInt("followers_count");
+        user.followingCount = jsonObject.getInt("friends_count");
         return user;
     }
 
@@ -63,6 +69,9 @@ public class User implements Parcelable{
         dest.writeLong(uid);
         dest.writeString(screenName);
         dest.writeString(profileImageUrl);
+        dest.writeString(tagLine);
+        dest.writeInt(followersCount);
+        dest.writeInt(followingCount);
     }
 
     public static final Parcelable.Creator<User> CREATOR
