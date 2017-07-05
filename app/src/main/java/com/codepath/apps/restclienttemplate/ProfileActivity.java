@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void populateUserHeadline(User user) {
         TextView tvName = (TextView) findViewById(R.id.tvUserName);
-        TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
+        // TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
 
     }
 }
