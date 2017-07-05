@@ -28,7 +28,8 @@ public class HomeTimelineFragment extends TweetsListFragment {
         populateTimeline();
     }
 
-    private void populateTimeline() {
+    @Override
+    public void populateTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -38,7 +39,6 @@ public class HomeTimelineFragment extends TweetsListFragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 addItems(response);
-                // swipeContainer.setRefreshing(false);
             }
 
             @Override
