@@ -1,5 +1,6 @@
 package com.codepath.apps.restclienttemplate.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.apps.restclienttemplate.R;
+import com.codepath.apps.restclienttemplate.TimelineActivity;
 import com.codepath.apps.restclienttemplate.TweetAdapter;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.models.Tweet;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
  * Created by mayajey on 7/3/17.
  */
 
-public class TweetsListFragment extends Fragment {
+public class TweetsListFragment extends Fragment implements TimelineActivity.TweetUpdateListener {
 
     private TwitterClient client;
     private TweetAdapter tweetAdapter;
@@ -77,12 +79,26 @@ public class TweetsListFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((TimelineActivity) context).registerDataUpdateListener(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((TimelineActivity) getActivity()).unregisterDataUpdateListener(this);
+    }
+
+    @Override
     public void afterNewTweet(Tweet newTweet) {
         tweets.add(0, newTweet);
         tweetAdapter.notifyItemInserted(0);
         rvTweets.getLayoutManager().scrollToPosition(0);
     }
 
+    // A scam that is overridden everywhere
     public void populateTimeline() { return; }
 
     public void addItems(JSONArray response) {
