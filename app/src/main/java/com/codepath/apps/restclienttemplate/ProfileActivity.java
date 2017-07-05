@@ -17,7 +17,6 @@ import cz.msebera.android.httpclient.Header;
 public class ProfileActivity extends AppCompatActivity {
 
     TwitterClient client;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
         client.getUserInfo(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                User user = null;
+                User user;
                 try {
                     user = User.fromJSON(response);
                     getSupportActionBar().setTitle(user.screenName);
@@ -43,14 +42,15 @@ public class ProfileActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
 
     public void populateUserHeadline(User user) {
         TextView tvName = (TextView) findViewById(R.id.tvUserName);
-        // TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
+
+        // what is tagline / how is it different from body? // why do we need body?
+        TextView tvTagline = (TextView) findViewById(R.id.tvTagline);
 
     }
 }

@@ -160,6 +160,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 Intent intent = new Intent(context, ProfileActivity.class);
                 // use parceler to wrap tweet
                 intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                intent.putExtra("screen_name", tweet.getUser().getScreenName());
                 // show the activity -- different from an adapter
                 ((AppCompatActivity) context).startActivity(intent);
             }

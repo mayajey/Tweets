@@ -37,10 +37,7 @@ public class ComposeActivity extends AppCompatActivity {
         etComposeTweet = (EditText) findViewById(R.id.etComposeTweet);
         etComposeTweet.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String base = " chars left";
@@ -49,11 +46,8 @@ public class ComposeActivity extends AppCompatActivity {
                 String finalText = String.valueOf(countLeft) + base;
                 tvCharCount.setText(finalText);
             }
-
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
         btPost.setOnClickListener(new View.OnClickListener() {
             @Override
