@@ -8,25 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.codepath.apps.restclienttemplate.fragments.HomeTimelineFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsPagerAdapter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
-import java.util.ArrayList;
-
 public class TimelineActivity extends AppCompatActivity {
-
-    public interface TweetUpdateListener {
-        void afterNewTweet(Tweet newTweet);
-    }
 
     private final int COMPOSE_REQUEST_CODE = 10;
     MenuItem miActionProgressItem;
-    private ArrayList<TweetUpdateListener> mListeners;
-    
+    HomeTimelineFragment homeTimelineFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        // init hometimelinefragment?
+
         // get the view pager
         ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -36,7 +33,7 @@ public class TimelineActivity extends AppCompatActivity {
         // configure tab layout to use pager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
-        mListeners = new ArrayList<>();
+        homeTimelineFragment = (HomeTimelineFragment) ((TweetsPagerAdapter) vpPager.getAdapter()).getItem(0);
     }
 
     @Override
@@ -60,30 +57,15 @@ public class TimelineActivity extends AppCompatActivity {
     public void onProfileView(MenuItem item) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+
     }
 
-    public synchronized void registerDataUpdateListener(TweetUpdateListener listener) {
-        mListeners.add(listener);
-    }
-
-    public synchronized void unregisterDataUpdateListener(TweetUpdateListener listener) {
-        mListeners.remove(listener);
-    }
-
-    public synchronized void dataUpdated(Tweet newTweet) {
-        for (TweetUpdateListener listener : mListeners) {
-            listener.afterNewTweet(newTweet);
-        }
-    }
-
-    // TODO fix this!
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // check request code and result code first
         if (resultCode == requestCode) {
             Tweet newTweet = (Tweet) data.getParcelableExtra("tweet");
-            // refresh is not working!
-            dataUpdated(newTweet);
+            homeTimelineFragment.afterNewTweet(newTweet);
         }
     }
 }
