@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class TweetsListFragment extends Fragment {
 
     private TwitterClient client;
-    private TweetAdapter tweetAdapter;
+    protected TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
     private SwipeRefreshLayout swipeContainer;

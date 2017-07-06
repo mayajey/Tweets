@@ -53,7 +53,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         // get tweet by position
         Tweet current = mTweets.get(position);
-
         // populate view based on this tweet
         holder.tvUserName.setText(current.user.name);
         holder.tvBody.setText(current.body);
@@ -76,12 +75,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     // Clean all elements of the recycler
     public void clear() {
         mTweets.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items
-    public void addAll(List<Tweet> list) {
-        mTweets.addAll(list);
         notifyDataSetChanged();
     }
 

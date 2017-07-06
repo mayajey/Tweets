@@ -15,20 +15,21 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 public class TimelineActivity extends AppCompatActivity {
 
     private final int COMPOSE_REQUEST_CODE = 10;
-    MenuItem miActionProgressItem;
     HomeTimelineFragment homeTimelineFragment;
+    // Top of the activity, declare this
+    TweetsPagerAdapter adapterViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        // init hometimelinefragment?
 
         // get the view pager
         ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
 
         // set adapter for pager
-        vpPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager(), this));
+        adapterViewPager = new TweetsPagerAdapter(getSupportFragmentManager(), this);
+        vpPager.setAdapter(adapterViewPager);
 
         // configure tab layout to use pager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -57,7 +58,6 @@ public class TimelineActivity extends AppCompatActivity {
     public void onProfileView(MenuItem item) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
-
     }
 
     @Override
@@ -65,7 +65,9 @@ public class TimelineActivity extends AppCompatActivity {
         // check request code and result code first
         if (resultCode == requestCode) {
             Tweet newTweet = (Tweet) data.getParcelableExtra("tweet");
-            homeTimelineFragment.afterNewTweet(newTweet);
+            HomeTimelineFragment fragmentHomeTweets =
+                    (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
+            fragmentHomeTweets.appendTweet(newTweet);
         }
     }
 }
