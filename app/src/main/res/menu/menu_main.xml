@@ -20,13 +20,14 @@
     <item
         android:id="@+id/miSearch"
         android:icon="@android:drawable/ic_menu_search"
+        android:onClick="onSearchAction"
         android:title="Search"
         app:showAsAction="always" />
     <item
         android:id="@+id/miProfile"
-        android:title="Profile"
-        android:onClick="onProfileView"
         android:icon="@drawable/ic_person_white_24dp"
+        android:onClick="onProfileView"
+        android:title="Profile"
         app:showAsAction="always" />
 
     <item
