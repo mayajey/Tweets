@@ -60,6 +60,11 @@ public class TimelineActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onSearchAction(MenuItem item) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // check request code and result code first

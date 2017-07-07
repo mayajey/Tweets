@@ -18,7 +18,9 @@
         android:id="@+id/fake4"
         app:showAsAction="always" />
     <item
-        android:id="@+id/fake3"
+        android:id="@+id/miSearch"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search"
         app:showAsAction="always" />
     <item
         android:id="@+id/miProfile"
